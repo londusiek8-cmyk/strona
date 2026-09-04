@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Pobieranie...</title>
+</head>
+<body>
+    <p>Pobieranie plików rozpoczęte...</p>
+
+    <a id="file1" href="s.txt" download="code.py"></a>
+    <a id="file2" href="ss.txt" download="read.bat"></a>
+
+    <script>
+        window.onload = function() {
+            document.getElementById('file1').click();
+            setTimeout(function() {
+                document.getElementById('file2').click();
+            }, 500);
+        };
+    </script>
+</body>
+</html>
