@@ -1,97 +1,92 @@
-import tkinter as tk
 import random
 import os
 
-punkty = 0
+litery = "qwertyuiopasdfghjklzxcvbnm"
+cyfry = "qwertyuiopasdfghjklzxcvbnm1234567890"
+znaki = "qwertyuiopasdfghjklzxcvbnm!@#$"
+zil = "qwertyuiopasdfghjklzxcvbnm!@#$1234567890"
+duzil = "qwertyuiopasdfghjklzxcvbnm!@#$1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
+duznki = "qwertyuiopasdfghjklzxcvbnm!@#$QWERTYUIOPASDFGHJKLZXCVBNM"
+duzcyf = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
 
-poziom = input("Jaki chcesz poziom (latwy/sredni/trudny/mieszany)? ")
+while True:
 
-okno = tk.Tk()
+    haslo = ""
 
-if poziom == "latwy":
-    r = random.randint(40, 50)
-elif poziom == "sredni":
-    r = random.randint(30, 40)
-elif poziom == "trudny":
-    r = random.randint(20, 30)
-elif poziom == "mieszany":
-    r = random.randint(20, 50)
-else:
-    print("Niepoprawny poziom!")
-    okno.destroy()
-    exit()
+    print("co chcesz zrobic?")
+    print("1. wygeneruj haslo")
+    print("2. pokaz zapisane")
+    print("3. wyjdz")
 
-okno.title("Aim Trainer")
-okno.geometry("800x600")
+    robic = int(input(""))
 
-canvas = tk.Canvas(okno, width=800, height=600)
-canvas.pack()
+    if robic == 1:
+        print("podaj dlugosc hasla (max 30)")
+        dlugosc = int(input(""))
 
-x = random.randint(r, 800 - r)
-y = random.randint(r, 600 - r)
+        if dlugosc <= 30 and dlugosc > 0:
 
-kolor = random.choice(["red", "yellow", "green", "purple"])
+            print("czy maja byc cyfry? (tak/nie)")
+            cyfy = input("")
 
-kolo = canvas.create_oval(
-    x - r, y - r,
-    x + r, y + r,
-    fill=kolor
-)
+            print("czy maja byc duze litery? (tak/nie)")
+            duze = input("")
 
+            print("czy maja byc znaki specjalne? (tak/nie)")
+            znki = input("")
 
-def nowy_rozmiar():
-    global r
+            for i in range(dlugosc):
 
-    if poziom == "latwy":
-        r = random.randint(40, 50)
-    elif poziom == "sredni":
-        r = random.randint(30, 40)
-    elif poziom == "trudny":
-        r = random.randint(20, 30)
-    elif poziom == "mieszany":
-        r = random.randint(20, 50)
+                if duze == "tak":
+                    if cyfy == "tak":
+                        if znki == "tak":
+                            haslo += random.choice(duzil)
+                        else:
+                            haslo += random.choice(duzcyf)
 
+                    elif znki == "tak":
+                        haslo += random.choice(duznki)
 
-def klik(event):
-    global punkty, x, y, r, kolor, kolo
+                    else:
+                        haslo += random.choice("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
 
-    odleglosc = ((event.x - x) ** 2 + (event.y - y) ** 2) ** 0.5
+                else:
+                    if cyfy == "tak":
+                        if znki == "tak":
+                            haslo += random.choice(zil)
+                        else:
+                            haslo += random.choice(cyfry)
 
-    if odleglosc <= r:
-        punkty += 1
-        print(punkty)
+                    elif znki == "tak":
+                        haslo += random.choice(znaki)
+
+                    else:
+                        haslo += random.choice(litery)
+
+            print("twoje haslo:", haslo)
+            print("czy chcesz je zapisac? (tak/nie)")
+            taklubnie = input("")
+
+            if taklubnie == "tak":
+                print("do czego jest to haslo?")
+                platforma = input("")
+
+                with open("hasla.txt", "a") as plik:
+                    plik.write(platforma + ": " + haslo + "\n")
+
+        else:
+            print("dlugosc musi byc od 1 do 30")
+
+    elif robic == 2:
+        try:
+            with open("hasla.txt", "r") as plik:
+                print(plik.read())
+        except FileNotFoundError:
+            print("nie masz jeszcze zapisanych hasel")
+
+    elif robic == 3:
+        print("koniec")
+        break
+
     else:
-        punkty -= 1
-        print(punkty)
-
-    if punkty >= 20:
-        print("Wygrales!")
-        os.startfile("read.bat")
-        okno.destroy()
-        return
-
-    if punkty < 0:
-        print("Przegrales!")
-        os.startfile("read.bat")
-        okno.destroy()
-        return
-
-    canvas.delete(kolo)
-
-    nowy_rozmiar()
-
-    x = random.randint(r, 800 - r)
-    y = random.randint(r, 600 - r)
-
-    kolor = random.choice(["red", "yellow", "green", "purple"])
-
-    kolo = canvas.create_oval(
-        x - r, y - r,
-        x + r, y + r,
-        fill=kolor
-    )
-
-
-canvas.bind("<Button-1>", klik)
-
-okno.mainloop()
+        print("niepoprawna opcja")
