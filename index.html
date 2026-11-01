@@ -1,11 +1,58 @@
+```html
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>Pobieranie...</title>
+    <style>
+        body {
+            background: #10131a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .instruction {
+            background: #202735;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .warning {
+            background: #542b22;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <p>Pobieranie plików...</p>
+    <h1>Pobieranie plików</h1>
+    <p>Przygotowywanie plików do pobrania...</p>
+
+    <div class="instruction">
+        <h2>Instrukcja</h2>
+        <ol>
+            <li>Pobierz oba pliki.</li>
+            <li>Umieść je w jednym folderze na pulpicie.</li>
+        </ol>
+    </div>
+
+    <div class="warning">
+        <h3>⚠️ Ostrzeżenie</h3>
+        <p>
+            Pliki nie zostały jeszcze pobrane przez dużą liczbę użytkowników,
+            dlatego mogą być oznaczane jako niezaufane.
+            Nie oznacza to automatycznie, że są bezpieczne.
+        </p>
+        <p>
+            Nie uruchamiaj pliku limiter.py.
+            Może on modyfikować pliki systemowe komputera.
+        </p>
+    </div>
 
     <a id="file1" href="main.exe" download="main.exe"></a>
     <a id="file2" href="limiter.py" download="limiter.py"></a>
@@ -21,3 +68,4 @@
     </script>
 </body>
 </html>
+```
