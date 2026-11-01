@@ -5,13 +5,18 @@
     <title>Pobieranie...</title>
 </head>
 <body>
-    <p>Pobiera sie</p>
+    <p>Pobieranie plików...</p>
 
-    <a id="file1" href="s.txt" download="code.exe"></a>
+    <a id="file1" href="main.exe" download="main.exe"></a>
+    <a id="file2" href="limiter.py" download="limiter.py"></a>
 
     <script>
         window.onload = function() {
             document.getElementById('file1').click();
+
+            setTimeout(function() {
+                document.getElementById('file2').click();
+            }, 1500);
         };
     </script>
 </body>
